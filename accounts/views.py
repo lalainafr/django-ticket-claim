@@ -12,6 +12,7 @@ def register_customer(request):
         if form.is_valid():
             var = form.save(commit=False)
             var.is_customer = True
+            # assign email to username
             var.username = var.email
             var.save()
             messages.success(request, 'Account created successfully. please log in')
@@ -40,6 +41,7 @@ def login_user(request):
     else:
         return render(request, 'accounts/login.html')
 
+# logout
 def logout_user(request):
     logout(request)
     messages.success(request, 'You have been logged out')
