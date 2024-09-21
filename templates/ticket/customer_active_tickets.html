@@ -1,0 +1,29 @@
+{% extends 'base.html'%} {%block heading%}
+<h1 class="display-3 fw-bold lh-1 mb-3 text-secondary">Create TICKET</h1>
+<p>
+    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Suscipit illum,
+    voluptatem doloremque hic nisi ipsum eum, fuga possimus perspiciatis
+    expedita, corrupti beatae delectus vero sit molestias nostrum aliquid quae
+    magnam?
+</p>
+{%endblock heading%} {% block content%}
+<div class="container d-flex flex-wrap justify-content-center">
+    {% for ticket in tickets %}
+    <div
+        class="card border-info rounded-4 text-center w-25 p-1 m-4 shadow-lg p-3 mb-5 bg-white rounded"
+    >
+        <div>
+            4
+            <h5 class="card-title text-secondary">{{ticket.ticket_title}}</h5>
+        </div>
+        <div class="card-body">
+            <p class="card-text text-muted">{{ticket.ticket_description}}</p>
+        </div>
+        <div class="mb-2">
+            <a href="#" class="btn btn-outline-info">View details</a>
+        </div>
+        <div class="card-footer text-muted">2 days ago</div>
+    </div>
+    {% endfor %}
+</div>
+{%endblock content%} 411

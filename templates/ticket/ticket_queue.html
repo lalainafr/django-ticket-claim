@@ -1,0 +1,52 @@
+{% extends 'base.html'%} {%block heading%}
+<h1 class="display-3 fw-bold lh-1 mb-3 text-secondary">TICKET Queue</h1>
+<p>
+    Lorem ipsum odor amet, consectetuer adipiscing elit. Ad elit dolor eu
+    interdum etiam maecenas quam. Lorem et libero sed interdum libero neque
+    primis lectus. Nunc hac in volutpat taciti vitae taciti. Class penatibus est
+    turpis taciti vulputate euismod curabitur quam sed. Augue leo amet lacinia
+    lobortis lectus, felis cubilia vehicula. Sit mi quis, montes primis donec
+    finibus. Ultrices mi litora habitant; massa arcu facilisis. Dapibus donec
+    sagittis auctor sollicitudin pulvinar, augue vestibulum eget.
+    <br /><br />
+    {%endblock heading%} {% block content%}
+</p>
+
+<div class="container">
+    <div>
+        <table class="table table-bordered">
+            <thead>
+                <tr class="text-center text-secondary">
+                    <th scope="col"># TICKET ID</th>
+                    <th scope="col">TICKET TITLE</th>
+                    <th scope="col">CUSTOMER</th>
+                    <th scope="col">DATE CREATED</th>
+                    <th scope="col">ACTION</th>
+                </tr>
+            </thead>
+            {% for ticket in tickets %}
+            <tbody>
+                <tr>
+                    <!-- <th scope="row">1</th> -->
+                    <td class="text-center">
+                        <small>
+                            <a href="#"> {{ticket.ticket_id}} </a>
+                        </small>
+                    </td>
+                    <td>{{ticket.ticket_title}}</td>
+                    <td>{{ticket.customer}}</td>
+                    <td>{{ticket.created_on}}</td>
+                    <td class="text-center">
+                        <a href="{% url 'assign-ticket' ticket.ticket_id %}">
+                            <button class="btn btn-sm btn-outline-info">
+                                Assign to Engineer
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{%endblock content%} 411
