@@ -1,5 +1,5 @@
 {% extends 'base.html'%} {%block heading%} {% load humanize %}
-<h1 class="display-3 fw-bold lh-1 mb-3 text-secondary">Create TICKET</h1>
+<h1 class="display-3 fw-bold lh-1 mb-3 text-secondary">Active tickets</h1>
 <p>
     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Suscipit illum,
     voluptatem doloremque hic nisi ipsum eum, fuga possimus perspiciatis
@@ -19,7 +19,11 @@
             <p class="card-text text-muted">{{ticket.ticket_description}}</p>
         </div>
         <div class="mb-2">
-            <a href="#" class="btn btn-outline-info">View details</a>
+            <a
+                href="{% url 'ticket-details' ticket.ticket_id %}"
+                class="btn btn-outline-info"
+                >View details</a
+            >
         </div>
         <br />
         <div class="card-footer text-muted">

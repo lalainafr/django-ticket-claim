@@ -48,7 +48,7 @@ def assign_ticket(request, ticket_id):
             return redirect('assign-ticket')
     else:
         form = AssignTicketForm()
-        context = {'form': form, 'ticket': tickets}
+        context = {'form': form, 'ticket': ticket}
         return render(request, 'ticket/assign_ticket.html', context)
     
 # ticket queue (for admin)
@@ -59,3 +59,7 @@ def ticket_queue(request):
 
 
 # tiockets details
+def ticket_details(request, ticket_id):
+    ticket =  Ticket.objects.get(ticket_id=ticket_id)
+    context = {'ticket': ticket}
+    return render(request, 'ticket/ticket_details.html', context)    

@@ -12,41 +12,39 @@
     {%endblock heading%} {% block content%}
 </p>
 
-<div class="container">
-    <div>
-        <table class="table table-bordered">
-            <thead>
-                <tr class="text-center text-secondary">
-                    <th scope="col"># TICKET ID</th>
-                    <th scope="col">TICKET TITLE</th>
-                    <th scope="col">CUSTOMER</th>
-                    <th scope="col">DATE CREATED</th>
-                    <th scope="col">ACTION</th>
-                </tr>
-            </thead>
-            {% for ticket in tickets %}
-            <tbody>
-                <tr>
-                    <!-- <th scope="row">1</th> -->
-                    <td class="text-center">
-                        <small>
-                            <a href="#"> {{ticket.ticket_id}} </a>
-                        </small>
-                    </td>
-                    <td>{{ticket.ticket_title}}</td>
-                    <td>{{ticket.customer}}</td>
-                    <td>{{ticket.created_on}}</td>
-                    <td class="text-center">
-                        <a href="{% url 'assign-ticket' ticket.ticket_id %}">
-                            <button class="btn btn-sm btn-outline-info">
-                                Assign to Engineer
-                            </button>
-                        </a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+<div>
+    <table class="table table-bordered">
+        <thead>
+            <tr class="text-center text-secondary">
+                <th scope="col"># TICKET ID</th>
+                <th scope="col">TICKET TITLE</th>
+                <th scope="col">CUSTOMER</th>
+                <th scope="col">DATE CREATED</th>
+                <th scope="col">ACTION</th>
+            </tr>
+        </thead>
+        {% for ticket in tickets %}
+        <tbody>
+            <tr>
+                <!-- <th scope="row">1</th> -->
+                <td class="text-center">
+                    <small>
+                        <a href="#"> {{ticket.ticket_id}} </a>
+                    </small>
+                </td>
+                <td>{{ticket.ticket_title}}</td>
+                <td>{{ticket.customer}}</td>
+                <td>{{ticket.created_on}}</td>
+                <td class="text-center">
+                    <a href="{% url 'assign-ticket' ticket.ticket_id %}">
+                        <button class="btn btn-sm btn-outline-info">
+                            Assign to Engineer
+                        </button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 {%endblock content%} 411
