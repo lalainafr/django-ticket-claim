@@ -1,0 +1,64 @@
+{% extends 'base.html'%} {%block content%}
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-3 fw-bold lh-1 text-secondary">
+            <b>Engineer Dashboard</b>
+        </h1>
+        <p class="lead">
+            <a
+                href="{% url 'all-active-tickets' %}"
+                class="btn btn-outline-warning"
+                role="button"
+                >View active ticket</a
+            >
+        </p>
+        <p class="lead mt-4">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius autem
+            maiores accusamus debitis expedita, explicabo qui dolores mollitia
+            voluptatem, cum quis sed pariatur perspiciatis obcaecati neque amet
+            quibusdam et deserunt. Ut sunt quisquam ullam, incidunt similique
+            blanditiis! Rerum rem consequuntur eum magni error fugit tempore
+            iusto, ex accusantium, consectetur ipsum iure, voluptatibus
+            quibusdam labore nemo architecto quam voluptatem corrupti
+            distinctio! Consequuntur commodi beatae, eius aspernatur autem
+            ducimus a ad nobis ullam distinctio ab temporibus sint, sit minima
+            inventore quasi doloribus omnis earum officia consequatur ipsa.
+            Repellat quam animi iste ducimus!
+        </p>
+        <hr class="my-4" />
+
+        <br />
+    </div>
+    <div class="row justify-content-center">
+        <div class="card col-md-6 mx-5 text-secondary" style="width: 18rem">
+            <div class="card-header text-info">TICKET STATUS</div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    Active Tickets: {{active_tickets.count}}
+                </li>
+                <li class="list-group-item">
+                    Closed Tickets: {{closed_tickets.count}}
+                </li>
+                <li class="list-group-item">
+                    Total Tickets: {{total_tickets.count}}
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <p class="text-muted">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius
+                rem optio, blanditiis impedit explicabo nam, eum ab deserunt
+                suscipit non voluptatibus et tenetur! Esse, alias quam fugit sed
+                illum necessitatibus... <br />
+                <br />
+                <b>Active</b>: Ticket that has been assigned to an engineer
+                <br />
+                <b>Closed</b>: Ticket that has been handled by an engineer and
+                has been closed <br />
+                <b>Total</b>: Total of Ticket that has been assigned to an
+                engineer
+            </p>
+        </div>
+    </div>
+    {%endblock content%} P
+</div>

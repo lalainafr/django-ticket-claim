@@ -1,8 +1,12 @@
 {% extends 'base.html'%} {%block content%}
 <div class="container">
     <div class="jumbotron">
-        <h1 class="display-3 text-secondary"><b>Customer Dashboard</b></h1>
-        <p class="lead">
+        <h1 class="display-3 fw-bold lh-1 text-secondary">
+            <b>Customer Dashboard</b>
+        </h1>
+        <a href="{% url 'customer-active-tickets'%}">See all active tickets</a>
+
+        <p class="lead mt-4">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius autem
             maiores accusamus debitis expedita, explicabo qui dolores mollitia
             voluptatem, cum quis sed pariatur perspiciatis obcaecati neque amet

@@ -1,4 +1,12 @@
-{% extends 'accounts/base.html'%} {%load widget_tweaks%} {%block heading%}
+{% extends 'base.html'%} {%load widget_tweaks%} 
+
+
+{% block content%}
+
+<div class="row justify-content-center">
+
+    <div class="col-md-5 mx-3">
+
 <h1 class="display-3 fw-bold lh-1 mb-3 text-secondary">Create TICKET</h1>
 <p>
     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Suscipit illum,
@@ -6,27 +14,32 @@
     expedita, corrupti beatae delectus vero sit molestias nostrum aliquid quae
     magnam?
 </p>
-{%endblock heading%} {% block content%}
-<form class="p-4 p-md-5 border rounded-4 shadow-lg p-3 mb-5 bg-white rounded " method="POST">
-    {%csrf_token%}
-    <div class="floatingInput mb-3">
-        <label for="floatingInput" class="form-label">Ticket title</label>
-        {% render_field form.ticket_title class="form-control" %}
+</div>
+<div class="col-md-5 mx-3">
 
-    </div>
-    <div class="floatingInput mb-3 ">
-        <label for="floatingInput" class="form-label">Ticket description</label>
-        {% render_field form.ticket_description class="form-control" rows="5" %}
-
-    </div>
-
-    <button type="submit" class="btn btn-outline-success">Submit</button>
-
-    <small class="text-muted"
+    
+    <form class="p-4 p-md-5 border rounded-4 shadow-lg p-3 mb-5 bg-white rounded " method="POST">
+        {%csrf_token%}
+        <div class="floatingInput mb-3">
+            <label for="floatingInput" class="form-label">Ticket title</label>
+            {% render_field form.ticket_title class="form-control" %}
+            
+        </div>
+        <div class="floatingInput mb-3 ">
+            <label for="floatingInput" class="form-label">Ticket description</label>
+            {% render_field form.ticket_description class="form-control" rows="5" %}
+            
+        </div>
+        
+        <button type="submit" class="btn btn-outline-success">Submit</button>
+        
+        <small class="text-muted"
         > 
         <br><br>
         This area enable you to submit any request to be handled by an engineer ...
+        
+    </form>
+</div>
+</div>
     
-</form>
-
 {%endblock content%}

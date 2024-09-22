@@ -2,15 +2,23 @@
 <div class="container">
     <div class="border p-4 bg-light shadow-lg mb-5 bg-white rounded">
         <div class="row">
-            <div class="col-md-7 mx-3">
+            <div class="col-md-7">
                 <div>
                     <h3 class="display-4 fw-bold lh-1 mb-3 text-secondary">
                         {{ ticket.ticket_title}}
                     </h3>
+                    <div>
+                        <button class="btn btn-outline-info">
+                            Mark as resolved
+                        </button>
+                    </div>
+                    <br />
                     <p>{{ticket.ticket_description}}</p>
+                    {% if ticket.status %}
                     <p>
                         <button class="btn btn-sm btn-success">Active</button>
                     </p>
+                    {% endif %}
                 </div>
             </div>
             <div
@@ -18,20 +26,29 @@
             >
                 <h4 class="display-6 lh-1 mb-3 text-secondary">Quick info</h4>
                 <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Nulla recusandae atque, minima consequuntur, facere officia
-                    itaque natus illum.
+                    <small>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Nulla recusandae atque, minima consequuntur, facere
+                        officia itaque natus illum.
+                    </small>
                 </p>
+                <div>
+                    <small>
+                        <b>Ticket Unique ID</b>: {{ticket.ticket_id}}
+                    </small>
+                    <br />
+                    <small> <b>Engineer</b>: {{ticket.engineer}} </small>
+                    <br />
 
-                <p><b>Ticket Unique</b>: {{ticket.ticket_id}}</p>
-                <p><b>Customer</b>: {{ticket.customer}}</p>
-                <p><b>Engineer</b>: {{ticket.engineer}}</p>
-                <p><b>Created on</b>: {{ticket.created_on}}</p>
-                <p><b>Severity</b>: {{ticket.severity}}</p>
+                    <small> <b>Customer</b>: {{ticket.customer}} </small>
+                    <br />
+
+                    <small> <b>Created on</b>: {{ticket.created_on}} </small>
+                    <br />
+
+                    <small> <b>Severity</b>: {{ticket.severity}} </small>
+                </div>
             </div>
-        </div>
-        <div class="mx-3 pt-5">
-            <button class="btn btn-outline-info">Mark as resolved</button>
         </div>
     </div>
 </div>

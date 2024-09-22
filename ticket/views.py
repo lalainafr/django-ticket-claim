@@ -7,6 +7,8 @@ from .form import CreateTicketForm, AssignTicketForm
 from .models import Ticket
 
 
+
+# --- CUSTOMER -----
 # customer can create a ticket
 def create_ticket(request):
     if request.method == 'POST':
@@ -28,12 +30,13 @@ def create_ticket(request):
         context = {'form': form}
         return render(request, 'ticket/create_tickets.html', context)
 
-# All created active ticket (can be seen by customer)
+# All created active ticket per customer
 def customer_active_tickets(request):
-    tickets = Ticket.objects.filter(customer=request.user, is_resolved =  False)
+    tickets = Ticket.objects.filter(is_resolved =  False,  customer= request.user)
     context = {'tickets': tickets}
     return render(request, 'ticket/customer_active_tickets.html', context)
-              
+
+# --- ADMIN -----            
 # assign tickets to engineers
 def assign_ticket(request, ticket_id):
     ticket = Ticket.objects.get(ticket_id=ticket_id)
@@ -50,15 +53,22 @@ def assign_ticket(request, ticket_id):
         form = AssignTicketForm()
         context = {'form': form, 'ticket': ticket}
         return render(request, 'ticket/assign_ticket.html', context)
-    
-# ticket queue (for admin)
+
+# --- ENGINEER -----             
+# ticket queue
 def ticket_queue(request):
     tickets = Ticket.objects.filter(is_assigned_to_engineer = False)
     context = {'tickets': tickets}
     return render(request, 'ticket/ticket_queue.html', context)
 
+# All created active ticket 
+def all_active_tickets(request):
+    tickets = Ticket.objects.filter(is_resolved =  False)
+    context = {'tickets': tickets}
+    return render(request, 'ticket/all_active_tickets.html', context)
 
-# tiockets details
+# --- ALL -----            
+# tickets details
 def ticket_details(request, ticket_id):
     ticket =  Ticket.objects.get(ticket_id=ticket_id)
     context = {'ticket': ticket}
