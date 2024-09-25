@@ -3,23 +3,30 @@
     <div class="border p-4 bg-light shadow-lg mb-5 bg-white rounded">
         <div class="row">
             <div class="col-md-7">
-                <div>
+                <div class="px-5">
                     <h3 class="display-4 fw-bold lh-1 mb-3 text-secondary">
                         {{ ticket.ticket_title}}
                     </h3>
-                    <div>
-                        <button class="btn btn-outline-info">
-                            Mark as resolved
-                        </button>
-                    </div>
+                    {% if ticket.status %}
+                    <button
+                        type="button"
+                        class="btn btn-sm btn-success rounded-4"
+                    >
+                        <span class="badge badge-light">Active</span>
+                    </button>
+                    {% endif %}
+                    <br />
+                    <br />
                     <br />
                     <p>{{ticket.ticket_description}}</p>
-                    {% if ticket.status %}
-                    <p>
-                        <button class="btn btn-sm btn-success">Active</button>
-                    </p>
-                    {% endif %}
                 </div>
+                {% if ticket.engineer is not None %}
+                <div class="px-5 mt-5">
+                    <button class="btn btn-outline-info">
+                        Mark as resolved
+                    </button>
+                </div>
+                {% endif %}
             </div>
             <div
                 class="col-md-4 border mx-3 shadow-lg p-4 mb-5 bg-white rounded"
@@ -29,7 +36,7 @@
                     <small>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                         Nulla recusandae atque, minima consequuntur, facere
-                        officia itaque natus illum.
+                        officia itaque natus illum.re
                     </small>
                 </p>
                 <div>
@@ -47,9 +54,14 @@
                     <br />
 
                     <small> <b>Severity</b>: {{ticket.severity}} </small>
+                    <br />
                 </div>
             </div>
         </div>
     </div>
 </div>
+<div>
+    <small> <b>Resolution</b>: {{ticket.resolution}} </small>
+</div>
+
 {%endblock content%}

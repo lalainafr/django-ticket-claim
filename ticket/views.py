@@ -5,8 +5,9 @@ from django.db import IntegrityError
 from django.contrib import messages
 from .form import CreateTicketForm, AssignTicketForm
 from .models import Ticket
+from django.contrib.auth import get_user_model
 
-
+User = get_user_model()
 
 # --- CUSTOMER -----
 # customer can create a ticket
@@ -43,7 +44,10 @@ def assign_ticket(request, ticket_id):
     if request.method == 'POST':
         form = AssignTicketForm(request.POST, instance=ticket)
         if form.is_valid():
-            var = form.save()
+            var = form.save(commit=False)
+            var.status = 'Active'
+            var.is_assigned_to_engineer = True
+            var.save()
             messages.success(request, f'Ticket has been assigned to {var.engineer}')
             return redirect('customer-active-tickets')
         else: 
@@ -51,21 +55,27 @@ def assign_ticket(request, ticket_id):
             return redirect('assign-ticket')
     else:
         form = AssignTicketForm()
+        
+        # have only engineer names on the list
+        form.fields['engineer'].queryset = User.objects.filter(is_engineer=True)
+        
         context = {'form': form, 'ticket': ticket}
         return render(request, 'ticket/assign_ticket.html', context)
 
 # --- ENGINEER -----             
 # ticket queue
+
+
 def ticket_queue(request):
     tickets = Ticket.objects.filter(is_assigned_to_engineer = False)
     context = {'tickets': tickets}
     return render(request, 'ticket/ticket_queue.html', context)
 
 # All created active ticket 
-def all_active_tickets(request):
-    tickets = Ticket.objects.filter(is_resolved =  False)
+def engineer_active_tickets(request):
+    tickets = Ticket.objects.filter(is_resolved = False, is_assigned_to_engineer = True, engineer = request.user)
     context = {'tickets': tickets}
-    return render(request, 'ticket/all_active_tickets.html', context)
+    return render(request, 'ticket/engineer_active_tickets.html', context)
 
 # --- ALL -----            
 # tickets details

@@ -5,11 +5,8 @@
             <b>Engineer Dashboard</b>
         </h1>
         <p class="lead">
-            <a
-                href="{% url 'all-active-tickets' %}"
-                class="btn btn-outline-warning"
-                role="button"
-                >View active ticket</a
+            <a href="{% url 'engineer-active-tickets'%}"
+                >See all active tickets</a
             >
         </p>
         <p class="lead mt-4">
@@ -20,16 +17,15 @@
             blanditiis! Rerum rem consequuntur eum magni error fugit tempore
             iusto, ex accusantium, consectetur ipsum iure, voluptatibus
             quibusdam labore nemo architecto quam voluptatem corrupti
-            distinctio! Consequuntur commodi beatae, eius aspernatur autem
-            ducimus a ad nobis ullam distinctio ab temporibus sint, sit minima
-            inventore quasi doloribus omnis earum officia consequatur ipsa.
-            Repellat quam animi iste ducimus!
-        </p>
-        <hr class="my-4" />
+            distinctio!
 
-        <br />
+            <br />
+        </p>
     </div>
-    <div class="row justify-content-center">
+
+    <div
+        class="row justify-content-center shadow lg-3 mb-5 bg-white rounded p-5"
+    >
         <div class="card col-md-6 mx-5 text-secondary" style="width: 18rem">
             <div class="card-header text-info">TICKET STATUS</div>
             <ul class="list-group list-group-flush">
