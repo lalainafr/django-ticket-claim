@@ -10,7 +10,7 @@
     sagittis auctor sollicitudin pulvinar, augue vestibulum eget.
     <br /><br />
 </p>
-
+{% if request.user.is_superuser %}
 <div>
     <div class="card shadow-lg p-3 mb-5">
         <div class="card-body">
@@ -56,5 +56,6 @@
         </div>
     </div>
 </div>
-
-{%endblock content%}
+{% else %}
+<p>Page dedicated for admin only ...</p>
+{% endif %} {%endblock content%}

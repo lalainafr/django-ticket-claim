@@ -44,7 +44,6 @@ def create_ticket(request):
         return render(request, 'ticket/create_tickets.html', context)
 
 @login_required
-# @permission_required('is_customer')
 # All customer active ticket per customer
 def customer_active_tickets(request):
     tickets = Ticket.objects.filter(is_resolved =  False,  customer= request.user)
@@ -53,15 +52,13 @@ def customer_active_tickets(request):
 
 
 @login_required
-# @permission_required('is_customer')
 # All customer resolved ticket per customer
 def customer_resolved_tickets(request):
     tickets = Ticket.objects.filter(is_resolved = True,  customer= request.user)
     context = {'tickets': tickets}
     return render(request, 'ticket/customer_resolved_tickets.html', context)
 
-@login_required
-# @permission_required('is_admin')
+
 # --- ADMIN -----            
 # assign tickets to engineers
 def assign_ticket(request, ticket_id):
@@ -74,10 +71,10 @@ def assign_ticket(request, ticket_id):
             var.is_assigned_to_engineer = True
             var.save()
             messages.success(request, f'Ticket has been assigned to {var.engineer}')
-            return redirect('customer-active-tickets')
+            return redirect('ticket-queue')
         else: 
-            messages.warning(request, 'SOmething went wrong')
-            return redirect('assign-ticket')
+            messages.warning(request, 'Something went wrong')
+            return redirect('ticket-queue')
     else:
         form = AssignTicketForm()
         
@@ -87,15 +84,17 @@ def assign_ticket(request, ticket_id):
         context = {'form': form, 'ticket': ticket}
         return render(request, 'ticket/assign_ticket.html', context)
 
-# --- ENGINEER -----    
-
-@login_required
-# @permission_required('is_engineer')         
 # ticket queue
 def ticket_queue(request):
     tickets = Ticket.objects.filter(is_assigned_to_engineer = False)
     context = {'tickets': tickets}
     return render(request, 'ticket/ticket_queue.html', context)
+
+
+# --- ENGINEER -----    
+
+# @login_required
+
 
 @login_required
 # @permission_required('is_engineer')  
@@ -104,7 +103,6 @@ def engineer_active_tickets(request):
     tickets = Ticket.objects.filter(is_resolved = False, is_assigned_to_engineer = True, engineer = request.user)
     context = {'tickets': tickets}
     return render(request, 'ticket/engineer_active_tickets.html', context)
-
 @login_required
 # @permission_required('is_engineer')  
 # All engineer resloved ticket 
@@ -114,8 +112,7 @@ def engineer_resolved_tickets(request):
     return render(request, 'ticket/engineer_resolved_tickets.html', context)
 
 @login_required
-@permission_required('is_engineer')  
-# Ticket resolution
+#Ticket resolution
 def resolve_ticket(request, ticket_id):
     ticket = Ticket.objects.get(ticket_id = ticket_id)
     if request.method == 'POST':
@@ -134,6 +131,8 @@ def resolve_ticket(request, ticket_id):
         form = ResolveTicketForm()
         context = {'ticket': ticket, 'form': form}
         return render(request, 'ticket/resolve_ticket.html', context)
+
+
 
 # --- ALL -----  
 @login_required          
