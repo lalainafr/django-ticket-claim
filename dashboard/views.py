@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from ticket.models import Ticket
-from django.contrib.auth.decorators import permission_required
 
-@login_required
+
+
 def dashboard(request):
     if request.user.is_customer:
         tickets = Ticket.objects.filter(is_resolved = False, customer = request.user)

@@ -8,7 +8,7 @@ from .models import Ticket
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
-
+from django.core.mail import send_mail
 
 User = get_user_model()
 
@@ -24,6 +24,14 @@ def create_ticket(request):
             var.ticket_id = id
             var.status = 'Pending'
             var.save()
+            
+            # send mail
+            subject = f'{var.ticket_title} #{var.ticket_id}'
+            message =  'Thank you for creating a ticket , we will assign an engineer soon'
+            email_from = 'lalaina@myself.com'
+            recipient_list = [request.user.email]
+            send_mail(subject, message, email_from, recipient_list)
+            
             messages.success(request, 'Your ticket has been submitted. A support Engineer would reach out soon')
             return redirect('customer-active-tickets')
         else:
@@ -36,7 +44,7 @@ def create_ticket(request):
         return render(request, 'ticket/create_tickets.html', context)
 
 @login_required
-@permission_required('is_customer')
+# @permission_required('is_customer')
 # All customer active ticket per customer
 def customer_active_tickets(request):
     tickets = Ticket.objects.filter(is_resolved =  False,  customer= request.user)
@@ -45,7 +53,7 @@ def customer_active_tickets(request):
 
 
 @login_required
-@permission_required('is_customer')
+# @permission_required('is_customer')
 # All customer resolved ticket per customer
 def customer_resolved_tickets(request):
     tickets = Ticket.objects.filter(is_resolved = True,  customer= request.user)
@@ -53,7 +61,7 @@ def customer_resolved_tickets(request):
     return render(request, 'ticket/customer_resolved_tickets.html', context)
 
 @login_required
-@permission_required('is_admin')
+# @permission_required('is_admin')
 # --- ADMIN -----            
 # assign tickets to engineers
 def assign_ticket(request, ticket_id):
@@ -82,7 +90,7 @@ def assign_ticket(request, ticket_id):
 # --- ENGINEER -----    
 
 @login_required
-@permission_required('is_engineer')         
+# @permission_required('is_engineer')         
 # ticket queue
 def ticket_queue(request):
     tickets = Ticket.objects.filter(is_assigned_to_engineer = False)
@@ -90,7 +98,7 @@ def ticket_queue(request):
     return render(request, 'ticket/ticket_queue.html', context)
 
 @login_required
-@permission_required('is_engineer')  
+# @permission_required('is_engineer')  
 # All engineer active ticket 
 def engineer_active_tickets(request):
     tickets = Ticket.objects.filter(is_resolved = False, is_assigned_to_engineer = True, engineer = request.user)
@@ -98,7 +106,7 @@ def engineer_active_tickets(request):
     return render(request, 'ticket/engineer_active_tickets.html', context)
 
 @login_required
-@permission_required('is_engineer')  
+# @permission_required('is_engineer')  
 # All engineer resloved ticket 
 def engineer_resolved_tickets(request):
     tickets = Ticket.objects.filter(is_resolved = True, is_assigned_to_engineer = True, engineer = request.user)
