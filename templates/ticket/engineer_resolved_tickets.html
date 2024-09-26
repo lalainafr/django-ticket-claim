@@ -1,0 +1,39 @@
+{% extends 'base.html'%} {% load humanize %} {% block content%}
+<h1 class="display-3 fw-bold lh-1 mb-3 text-secondary">Engineer Resolved Tickets</h1>
+<p>
+    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Suscipit illum,
+    voluptatem doloremque hic nisi ipsum eum, fuga possimus perspiciatis
+    expedita, corrupti beatae delectus vero sit molestias nostrum aliquid quae
+    magnam?
+</p>
+<div class="d-flex flex-wrap justify-content-center">
+    {% for ticket in tickets %}
+    <div
+        class="card border-info rounded-4 text-center w-25 p-1 m-4 shadow-lg p-3 mb-5 bg-white rounded"
+    >
+        <div></div>
+        <div class="card-body">
+            <p class="card-text text-muted">
+                <small> <i>Ticket #{{ticket.ticket_id}} </small></i>
+                <br />
+                <b> {{ticket.ticket_title}} </b>
+            </p>
+            <p class="card-text text-muted">
+                <small> {{ticket.ticket_description}} </small>
+            </p>
+        </div>
+        <div class="mb-2">
+            <a
+                href="{% url 'ticket-details' ticket.ticket_id %}"
+                class="btn btn-outline-info btn-sm"
+                >View details</a
+            >
+        </div>
+        <br />
+        <div class="card-footer text-muted">
+            <small> Created {{ticket.created_on|naturaltime}} </small>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{%endblock content%} 

@@ -7,26 +7,34 @@
                     <h3 class="display-4 fw-bold lh-1 mb-3 text-secondary">
                         {{ ticket.ticket_title}}
                     </h3>
-                    {% if ticket.status %}
+                    {% if ticket.status %} {% if ticket.status == 'Pending' %}
+                    <button
+                        type="button"
+                        class="btn btn-sm btn-warning rounded-4"
+                    >
+                        <span class="badge badge-light">Pending</span>
+                    </button>
+                    {% elif ticket.status == 'Active' %}
                     <button
                         type="button"
                         class="btn btn-sm btn-success rounded-4"
                     >
                         <span class="badge badge-light">Active</span>
                     </button>
-                    {% endif %}
+                    {% elif ticket.status == 'Resolved' %}
+                    <button
+                        type="button"
+                        class="btn btn-sm btn-primary rounded-4"
+                    >
+                        <span class="badge badge-light">Resolved</span>
+                    </button>
+
+                    {% endif %} {% endif %}
                     <br />
                     <br />
                     <br />
                     <p>{{ticket.ticket_description}}</p>
                 </div>
-                {% if ticket.engineer is not None %}
-                <div class="px-5 mt-5">
-                    <button class="btn btn-outline-info">
-                        Mark as resolved
-                    </button>
-                </div>
-                {% endif %}
             </div>
             <div
                 class="col-md-4 border mx-3 shadow-lg p-4 mb-5 bg-white rounded"
@@ -60,8 +68,20 @@
         </div>
     </div>
 </div>
-<div>
-    <small> <b>Resolution</b>: {{ticket.resolution}} </small>
-</div>
 
-{%endblock content%}
+{% if ticket.is_assigned_to_engineer %} {% if not ticket.is_resolved %}
+<div class="px-5 mt-5">
+    <a href="{% url 'resolve-ticket' ticket.ticket_id%}">
+        <button class="btn btn-outline-info">Mark as resolved</button>
+    </a>
+</div>
+{% elif ticket.is_resolved %}
+<div class="card">
+    <div class="card-body shadow-sm">
+        <small> <b>Résolution</b>: </small>
+        <br />
+        <small>{{ticket.resolution}}</small>
+        <p />
+    </div>
+</div>
+{%endif %} {% endif %} {%endblock content%}

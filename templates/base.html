@@ -13,7 +13,7 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container mb-4">
+            <div class="container mb-2">
                 <!-- <a class="navbar-brand" href="#">Navbar scroll</a> -->
                 <button
                     class="navbar-toggler"
@@ -43,24 +43,8 @@
                                 >
                             </button>
                         </li>
-                        {% if request.user.is_engineer%}
-                        <li class="nav-item">
-                            <a
-                                class="nav-link"
-                                href="{% url 'engineer-active-tickets'%}"
-                                >Acive tickets</a
-                            >
-                        </li>
-                        {%elif request.user.is_customer%}
-                        <li class="nav-item">
-                            <a
-                                class="nav-link"
-                                href="{% url 'customer-active-tickets' %}"
-                                >Acive tickets</a
-                            >
-                        </li>
-                        {%endif%}
-                        <li class="nav-item dropdown">
+
+                        <li class="nav-item dropdown ps-5">
                             <a
                                 class="nav-link dropdown-toggle"
                                 href="#"
@@ -68,23 +52,46 @@
                                 data-bs-toggle="dropdown"
                                 aria-expanded="false"
                             >
-                                Link
+                                <b>Tickets</b>
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a class="dropdown-item" href="#">Action</a>
+                                    {% if request.user.is_engineer%}
+                                    <a
+                                        class="dropdown-item"
+                                        href="{% url 'engineer-active-tickets'%}"
+                                    >
+                                        <small> Active Tickets</small>
+                                    </a>
                                 </li>
-                                <li>
-                                    <a class="dropdown-item" href="#"
-                                        >Another action</a
+                                {%elif request.user.is_customer%}
+                                <li class="dropdown-item">
+                                    <a
+                                        class="nav-link"
+                                        href="{% url 'customer-active-tickets' %}"
+                                    >
+                                        <small> Active Tickets</small></a
                                     >
                                 </li>
-                                <li><hr class="dropdown-divider" /></li>
+                                {%endif%}
                                 <li>
-                                    <a class="dropdown-item" href="#"
-                                        >Something else here</a
+                                    {% if request.user.is_engineer%}
+                                    <a
+                                        class="dropdown-item"
+                                        href="{% url 'engineer-resolved-tickets'%}"
+                                        ><small> Resolved Tickets</small></a
                                     >
                                 </li>
+                                {%elif request.user.is_customer%}
+                                <li class="dropdown-item">
+                                    <a
+                                        class="nav-link"
+                                        href="{% url 'customer-resolved-tickets' %}"
+                                    >
+                                        <small> Resolved Tickets</small></a
+                                    >
+                                </li>
+                                {%endif%}
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -104,7 +111,7 @@
                 </div>
             </div>
         </nav>
-        <div class="container mt-5">
+        <div class="container mt-3">
             {% if messages %} {% for message in messages %}
             <div class="alert alert-{{message.tags}}" role="alert">
                 {{message}}

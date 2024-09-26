@@ -1,0 +1,33 @@
+{% extends 'base.html'%} {%load widget_tweaks%} {% block content%}
+
+<div  justify-content-center">
+    <div>
+        <h1 class="display-3 fw-bold lh-1 mb-3 text-secondary">
+            Resolve Tickets
+        </h1>
+        <p>
+            {{ticket.resolution}}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <form
+            class="p-4 p-md-5 border rounded-4 bg-white shadow-lg p-3 mb-5 bg-white rounded"
+            method="POST"
+        >
+            {%csrf_token%}
+
+            <small class="text-muted">
+                Type the descritpion how the ticket was resolved
+            </small>
+            <div class="floatingInput mb-3">
+                {% render_field form.resolution class="form-control" %}
+            </div>
+            <br />
+            <button type="submit" class="btn btn-outline-success">
+               Resolve
+            </button>
+        </form>
+
+        {%endblock content%}
+    </div>
+</div>
