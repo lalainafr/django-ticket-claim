@@ -43,7 +43,7 @@
                                 >
                             </button>
                         </li>
-
+                        {%if request.user.is_authenticated %}
                         <li class="nav-item dropdown ps-5">
                             <a
                                 class="nav-link dropdown-toggle"
@@ -94,6 +94,7 @@
                                 {%endif%}
                             </ul>
                         </li>
+                        {% endif%}
                         <li class="nav-item">
                             <a class="nav-link disabled" aria-disabled="true"
                                 >{{request.user.email}}</a
